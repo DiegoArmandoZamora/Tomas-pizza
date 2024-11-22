@@ -1,0 +1,52 @@
+create database Tomas_pizza;
+use Tomas_pizza;
+
+create table creacion_registro(
+id int auto_increment primary key unique not null,
+nueva_Contrasena varchar(255) not null,
+nuevo_Usuario varchar(45) not null
+);
+drop table creacion_registro;
+insert into creacion_registro (nueva_Contrasena,nuevo_Usuario)values("","");
+select * from creacion_registro;
+
+create table usuario(
+id int primary key not null,
+nombre_cajero varchar(40) not null,
+contraseña int(15) not null
+);
+
+drop table usuario;
+insert into usuario (nombre_cajero,contraseña) values("","");
+select * from usuario;
+
+create table ventas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    modo_pago varchar(50),
+    total_general int,
+    vegetariana int,
+    carnes int,
+    peperoni int,
+    pollo int,
+    bbq int,
+    bebidas INT,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+drop table ventas;
+insert into ventas (modo_pago,total_general,vegetariana,carnes,peperoni,pollo,bbq,bebidas) values("","","","","","","","");
+select * from ventas;
+
+
+create table gastos(
+nombre_cajero varchar(25) primary key not null,
+valor_gasto int(20) not null,
+factura_num int(50) not null,
+descripcion varchar(50) not null,
+fecha timestamp default current_timestamp
+
+);
+
+drop table gastos;
+insert into gastos (nombre_cajero,valor_gasto,factura_num,descripcion) values("","","","");
+select * from gastos;
