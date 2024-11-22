@@ -1,0 +1,9 @@
+Factura de Venta
+
+Fecha: 2024-11-20
+Hora: 08:22:AM
+Forma de pago: TRANSFERENCIA
+
+VEGETARIANA: 2
+
+Total: $50000.00
