@@ -1,14 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-from Bienvenida import abrir_bienvenida
-import bcrypt
+
 import messagebox
 import mysql.connector
 from PIL import Image, ImageTk
+
+
 import Bienvenida
 
-# conexion base de datos
 
 def conectar_db():
     try:
@@ -25,44 +25,39 @@ def conectar_db():
         messagebox.showerror("Error de coneccion",f"Error:{err}")
         return None
 
-    # verificacion de usuario Administrador de contaseñas
-
 def verificar_usuario(username,password):
     try:
         db = conectar_db()
         if db:
-            cursor = db.cursor(dictionary=True)
+            cursor = db.cursor()
             query = "SELECT * FROM usuarios WHERE usuario = %s AND contraseña = %s"
             cursor.execute(query,(username,password))
             result = cursor.fetchone()
             db.close()
 
             if result:
-                return result
+                return True
             else:
-                return None
+                return False
 
     except mysql.connector.Error as err:
-            messagebox.showerror("Error", f"Error al validar credenciales: {err}")
-    return None
-
-# limpiar registro de usuario
+        messagebox.showerror("Error",f"Error al validar credenciales: {err}")
+    return False
 
 def login():
     username = user_entry.get()
     password = password_entry.get()
 
     if username == "" or password == "":
-        error_label.config(text="Por favor, ingrese usuario y contraseña", fg="red")
+        error_label.config(text="por favor,ingrese  usuario y contraseña", fg="red")
+
     else:
-        usuario = verificar_usuario(username, password)
-        if usuario:
-            user_entry.delete(0,tk.END)
-            password_entry.delete(0,tk.END)
+        if verificar_usuario(username,password):
             ventana.withdraw()
-            abrir_bienvenida(ventana,usuario)
+            Bienvenida.abrir_bienvenida(ventana)
         else:
             error_label.config(text="Usuario o contraseña incorrectos", fg="red")
+
 
 # Ventana
 ventana = tk.Tk()

@@ -58,6 +58,6 @@ def abrir_cierre_caja(ventana_Bienvenida):
     volver.config(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=14)
     volver.place(x=180, y=420)
 
-    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\interface grafica\recursos\logoico.ico")
+    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
 
     Ventana.mainloop()

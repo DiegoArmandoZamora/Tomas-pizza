@@ -4,7 +4,6 @@ from tkinter import filedialog,messagebox
 from time import strftime
 import mysql.connector
 
-
 contador_impresiones = 0
 
 def conectar_db():
@@ -18,7 +17,7 @@ def conectar_db():
     )
 
 #coneccion a la base de datos
-def guardar_en_bd(modo_pago,total_general,vegetariana,carnes,peperoni,pollo,bbq,bebidas):
+def guardar_en_bd(modo_pago,total_general,vegetariana,carnes,peperoni,pollo,bbq,bebidas,boton):
     try:
         conn = conectar_db()
         cursor = conn.cursor()
@@ -29,14 +28,17 @@ def guardar_en_bd(modo_pago,total_general,vegetariana,carnes,peperoni,pollo,bbq,
         cursor.close()
 
         print("Datos ingresados a la base de Datos.")
+        boton.config(state=tk.DISABLED)
+        messagebox.showinfo("Pago Realizado","El Pago Se Realizo Exitosamente")
     except mysql.connector.Error as err:
         print(f"Error:{err}")
-        messagebox.showerror("Error", f"Hubo un error al guarar los datos:{err}")
+        messagebox.showerror("Error", f"Hubo Un Error Al Guarar Los Datos:{err}")
 
 
 def generar_factura(ventana, modo_pago, total_general, vegetariana, carnes, peperoni, pollo, bbq, bebidas):
     global contador_impresiones
     contador_impresiones += 1
+
 
     factura = f"Factura de Venta\n\n"
     factura += f"Fecha: {strftime('%Y-%m-%d')}\n"
@@ -58,20 +60,18 @@ def generar_factura(ventana, modo_pago, total_general, vegetariana, carnes, pepe
 
     factura += f"\nTotal: ${total_general:.2f}\n"
 
-    # donde se guardeara la factuta sedebe de colocar la ubicacion de donde se quiere guardar tipo Txt
+    # Imprimir directamente la factura directamente a la impresora
+    try:
+        archivo_temporal = "temp_factura.txt"
+        with open(archivo_temporal, 'w') as f:
+            f.write(factura)
+        os.system(f'notepad.exe /p "{archivo_temporal}"')
+        messagebox.showinfo("Factura Impresa", "La Factura se esta Imprimiendo.")
+        os.remove(archivo_temporal)
+    except Exception as e:
+        messagebox.showinfo("Error al Imprimir", "Impresora no encontrada revise coneccion")
 
-    archivo = filedialog.asksaveasfilename(defaultextension=".txt",filetypes=[("Text files","*.txt")],initialdir="C:/Users/dzamora/Desktop/sena/Facturas")  # ubicacion de la factura
-    if archivo:
-        try:
-            with open(archivo,'w') as f:
-                f.write(factura)
-            messagebox.showinfo("Factura Generada", "Lafactura se Guardo correctamente.")
-            os.system(f'notepad.exe /p "{archivo}')
 
-        except Exception as e:
-            messagebox.showinfo("Error", f"Nosepudo guardar la factura: {e}")
-    else:
-        messagebox.showinfo("Facturano guardada","No se guardo la factura.")
 
 def abrirCierreVentas(ventana_pago_pedido, modo_pago, total_general, vegetariana, carnes, peperoni, pollo, bbq, bebidas):
     Ventana = tk.Toplevel(ventana_pago_pedido)
@@ -91,9 +91,8 @@ def abrirCierreVentas(ventana_pago_pedido, modo_pago, total_general, vegetariana
         ventana_pago_pedido.deiconify()
 
 
-
 # FECHA Y HORA
-    from time import strftime
+
 
     def actualizar_reloj():
         tiempo_actual = strftime('%H:%M:%S %p')
@@ -170,7 +169,7 @@ def abrirCierreVentas(ventana_pago_pedido, modo_pago, total_general, vegetariana
     etiqueta_forma_pago.place(x=50, y=150)
 
 # Etiqueta validacion forma de pago
-    etiqueta_pago_seleccionado = tk.Label(Ventana, text=f"{modo_pago}: ")
+    etiqueta_pago_seleccionado = tk.Label(Ventana, text=f"{modo_pago}:")
     etiqueta_pago_seleccionado.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 13, "bold"))
     etiqueta_pago_seleccionado.place(x=53, y=200)
 
@@ -180,11 +179,10 @@ def abrirCierreVentas(ventana_pago_pedido, modo_pago, total_general, vegetariana
     etiqueta_valor_total.place(x=350, y=200)
 
 
-    boton_precio = tk.Button(Ventana, text="REALIZAR PAGO", font=("Open Sans", 10),
-                             bg="#a6a6a6", width=15)
+    boton_precio = tk.Button(Ventana, text="REALIZAR PAGO", font=("Open Sans", 10), bg="#a6a6a6", width=15,command=lambda: guardar_en_bd(modo_pago,total_general,vegetariana,carnes,peperoni,pollo,bbq,bebidas,boton_precio))
     boton_precio.place(x=210, y=400)
 
-    boton_cierre = tk.Button(Ventana, text="IMPRIMIR FACTURA",command=lambda: generar_factura(Ventana,modo_pago,total_general,vegetariana,carnes,peperoni,pollo,bbq,bebidas))
+    boton_cierre = tk.Button(Ventana, text="IMPRIMIR FACTURA",command=lambda: generar_factura(Ventana, modo_pago, total_general, vegetariana, carnes,peperoni, pollo, bbq, bebidas))
     boton_cierre.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
     boton_cierre.place(x=210, y=450)
 
@@ -192,5 +190,6 @@ def abrirCierreVentas(ventana_pago_pedido, modo_pago, total_general, vegetariana
     volver.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
     volver.place(x=210, y=500)
 
-    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\interface grafica\recursos\logoico.ico")
+
+    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
     Ventana.mainloop()

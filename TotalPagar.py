@@ -178,6 +178,6 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     volver.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
     volver.place(x=350, y=450)
 
-    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\interface grafica\recursos\logoico.ico")
+    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
 
     Ventana.mainloop()

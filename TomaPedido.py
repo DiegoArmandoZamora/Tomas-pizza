@@ -2,12 +2,15 @@ import tkinter
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
+
+import messagebox
+
 import Bienvenida
 import TotalPagar
 from TotalPagar import abrirPagoPedido, contador_pedidos
 import random
 
-contador_pedidos = 0
+
 
 def abrir_registrar_pedido(ventana_Bienvenida):
     Ventana = Toplevel(ventana_Bienvenida)
@@ -16,20 +19,50 @@ def abrir_registrar_pedido(ventana_Bienvenida):
     Ventana.config(bg="#FDF5E6")
     Ventana.resizable(False, False)
 
+
+    def reiniciar_pedido():
+        entryVegetariana.delete(0,tk.END)
+        entryCarnes.delete(0, tk.END)
+        entryPeperoni.delete(0, tk.END)
+        entryPollo.delete(0, tk.END)
+        entryBbq.delete(0, tk.END)
+        entryBebidas.delete(0, tk.END)
+
+        global vegetariana, carnes, peperoni, pollo, bbq, bebidas
+        vegetariana = 0
+        carnes = 0
+        peperoni = 0
+        pollo = 0
+        bbq = 0
+        bebidas = 0
+
+        messagebox.showinfo("Reinicio de Pedido", "El pedido ha sido reiniciado. Puede comenzar de nuevo.")
+
     def pagoPedido():
         global contador_pedidos
+        try:
 
-        vegetariana = int(entryVegetariana.get() or 0)
-        carnes = int(entryCarnes.get() or 0)
-        peperoni = int(entryPeperoni.get() or 0)
-        pollo = int(entryPollo.get() or 0)
-        bbq = int(entryBbq.get() or 0)
-        bebidas = int(entryBebidas.get() or 0)
+           vegetariana = int(entryVegetariana.get() or 0)
+           carnes = int(entryCarnes.get() or 0)
+           peperoni = int(entryPeperoni.get() or 0)
+           pollo = int(entryPollo.get() or 0)
+           bbq = int(entryBbq.get() or 0)
+           bebidas = int(entryBebidas.get() or 0)
+
+      # validacion de cantidades para continuar con el pedido
+
+           if vegetariana == 0 and carnes == 0 and peperoni == 0 and pollo == 0 and bbq == 0 and bebidas == 0:
+              raise ValueError("Debe ingresar la cantidad de un producto para poder continuar.")
+
+        except ValueError as ve:
+            messagebox.showerror("Error", f"Porfavor Ingresar Cantidades Para Contiunuar")
+            return
 
         contador_pedidos += 1
 
         Ventana.withdraw()
         TotalPagar.abrirPagoPedido(Ventana, vegetariana, carnes, peperoni, pollo, bbq, bebidas,contador_pedidos)
+
 
 
     def volver():
@@ -112,5 +145,9 @@ def abrir_registrar_pedido(ventana_Bienvenida):
     volver.place(x=190, y=450)
     volver.config(width=18)
 
-    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\interface grafica\recursos\logoico.ico")
+    boton_reiniciar = tk.Button(Ventana, text="REINICIAR PEDIDO", bg="#a6a6a6", command=reiniciar_pedido)
+    boton_reiniciar.place(x=190, y=500)
+    boton_reiniciar.config(width=18)
+
+    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
     Ventana.mainloop()
