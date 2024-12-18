@@ -8,6 +8,7 @@ import mysql.connector
 from PIL import Image, ImageTk
 import Bienvenida
 
+
 # conexion base de datos
 
 def conectar_db():
@@ -71,7 +72,7 @@ ventana.geometry(f"500x600+400+50")
 ventana.config(bg="#FDF5E6")
 ventana.resizable(False, False)
 
-# Crear un marco para el formulario de login
+# Crear un marco para el formulario de login1
 frame_login = tk.Frame(ventana, padx=20, pady=20)
 frame_login.pack(side="right", expand=True, fill="both")
 frame_login.place(x=160, y=180)
