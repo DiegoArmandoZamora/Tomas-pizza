@@ -48,18 +48,31 @@ def abrir_gastos(ventana_Bienvenida):
         descripcion = info.get()
 
         if not nombre_cajero or not valor_gasto or not factura_num or not descripcion:
-            messagebox.showwarning("Ingreso de datos exitoso","Por favor completa los todos los campos.")
+            messagebox.showwarning("Ingreso de datos incompleto","Por favor completa los todos los campos.")
             return
 
         conexion = conectar_db()
+
         if conexion:
             cursor = conexion.cursor()
 
             try:
-                query = "insert into gastos (nombre_cajero,valor_gasto,factura_num,descripcion)VALUES(%s,%s,%s,%s)"
-                cursor.execute(query,(nombre_cajero,valor_gasto,factura_num,descripcion))
-                conexion.commit()
-                messagebox.showinfo("Exito","gasto guardado correctamente.")
+                query_verificacion = "SELECT es_administrador From usuarios WHERE usuario = %s"
+                cursor.execute(query_verificacion,(nombre_cajero,))
+                resultado = cursor.fetchone()
+
+                if resultado:
+                    es_administrador = resultado[0]
+                    if es_administrador:
+
+                         query = "insert into gastos (nombre_cajero,valor_gasto,factura_num,descripcion)VALUES(%s,%s,%s,%s)"
+                         cursor.execute(query,(nombre_cajero,valor_gasto,factura_num,descripcion))
+                         conexion.commit()
+                         messagebox.showinfo("Exito","gasto guardado correctamente.")
+                    else:
+                        messagebox.showwarning("Acceso no autorizado","El cajero no esta autorizado para realizar esta accion")
+                else:
+                    messagebox.showwarning("cajero no encontrado","Elcajero no esta registrado en la base de Datos")
             except mysql.connector.Error as err:
                 messagebox.showerror("Error al guardar",f"Error:{err}")
             finally:
@@ -132,6 +145,6 @@ def abrir_gastos(ventana_Bienvenida):
 
 
 
-    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\interface grafica\recursos\logoico.ico")
+    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
 
     Ventana.mainloop()

@@ -73,6 +73,14 @@ def abrir_cierre_caja(ventana_Bienvenida):
                 def Guardar_cierre():
 
                     try:
+                        if total_ventas == 0 or total_efectivo < 0 or total_transferencia < 0:
+                            messagebox.showwarning("Datos invalidos", " Datos incorrectos, revisa fechas y valores.")
+                            return
+
+                        confirmacion = messagebox.askyesno("confirmar cierre"," ¿Estas seguro de realizar el Cierre?")
+                        if not confirmacion:
+                            return
+
                         conexion = mysql.connector.connect(
 
                            host = "127.0.0.1",
@@ -84,14 +92,20 @@ def abrir_cierre_caja(ventana_Bienvenida):
 
                         cursor = conexion.cursor()
 
-# incertar los datos en la tabla cierre
+# incertar los datos en la tabla cierre Mysql
 
-                        consulta_insert = """INSERT INTO cierre (Ventas_fecha, Total_general, Ventas_Efectivo, Ventas_transferencia) VALUES (%s,%s,%s,%s)"""
+                        consulta_verificar = "SELECT COUNT(*) FROM cierre WHERE Ventas_fecha = %s"
+                        cursor.execute(consulta_verificar, (fecha,))
+                        resultado_verificacion = cursor.fetchone()
 
-                        cursor.execute(consulta_insert, (fecha, total_ventas, total_efectivo, total_transferencia))
-                        conexion.commit()
+                        if resultado_verificacion[0] > 0:
+                            messagebox.showwarning("Cierre duplicado", "Este cierre ya esta registrado")
+                        else:
+                            consulta_insert =  """INSERT INTO cierre (Ventas_fecha, Total_general, Ventas_Efectivo, Ventas_transferencia) VALUES (%s, %s, %s, %s)"""
+                            cursor.execute(consulta_insert,(fecha, total_ventas, total_efectivo, total_transferencia))
+                            conexion.commit()
+                            messagebox.showinfo("Cierre guardado","El cierre esta guardado en la base de datos.")
 
-                        messagebox.showinfo("Cierre guardado", "El cierre  esta guardado en la base de datos")
                         conexion.close()
 
                     except mysql.connector.Error as err:
@@ -108,7 +122,7 @@ def abrir_cierre_caja(ventana_Bienvenida):
 
 
     # Botón para seleccionar la fecha
-    boton_fecha = tk.Button(Ventana, text="INGRESA FECHA", command=consultar_ventas)
+    boton_fecha = tk.Button(Ventana, text="CONSULTAR FECHA", command=consultar_ventas)
     boton_fecha.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
     boton_fecha.place(x=55, y=100)
 
@@ -116,12 +130,21 @@ def abrir_cierre_caja(ventana_Bienvenida):
     etiqueta_resultado.place(x=100, y=230)
 
     boton_guardar_cierre = tk.Button(Ventana, text="GUARDAR CIERRE")
-    boton_guardar_cierre.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=14)
+    boton_guardar_cierre.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
     boton_guardar_cierre.place(x=180, y=380)
 
+# Boton limpiar consulta
+
+    def limpiar_consulta():
+        etiqueta_resultado.config(text="RESULTADO")
+
+    boton_limpiar = tk.Button(Ventana, text="LIMPIAR CONSULTA", command=limpiar_consulta)
+    boton_limpiar.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
+    boton_limpiar.place(x=180, y=420)
+
     volver = tk.Button(Ventana, text="VOLVER", command=volver)
-    volver.config(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=14)
-    volver.place(x=180, y=420)
+    volver.config(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
+    volver.place(x=180,y=460)
 
     Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
 

@@ -184,9 +184,22 @@ def abrir_bienvenida(ventana_login,usuario):
     botonf.place(x=190, y=300)
     botonf.config(width=15, bg="#FDF5E6")
 
-    botong = tk.Button(Bienvenida, text="AGREGAR GASTO", command=gastos)
-    botong.place(x=190, y=350)
-    botong.config(width=15, bg="#FDF5E6")
+    if usuario.get('es_administrador',False):
+        botong = tk.Button(Bienvenida, text="AGREGAR GASTO", command=gastos)
+        botong.place(x=190, y=350)
+        botong.config(width=15, bg="#FDF5E6")
+
+        boton_registrar = tk.Button(Bienvenida, text="CREAR USUARIO", command=lambda: open_register_window(Bienvenida))
+        boton_registrar.place(x=190, y=400)
+        boton_registrar.config(width=15, bg="#FDF5E6")
+
+        boton_eliminar = tk.Button(Bienvenida, text="ELIMINAR USUARIO", command=lambda: delete_user(Bienvenida))
+        boton_eliminar.place(x=190, y=450)
+        boton_eliminar.config(width=15, bg="#FDF5E6")
+    else:
+        botong = None
+
+
 
     # boton de salida de Bienvenida
     def salir():
@@ -196,20 +209,6 @@ def abrir_bienvenida(ventana_login,usuario):
     boton_salir = tkinter.Button(Bienvenida,text="SALIR", command=salir)
     boton_salir.place(x=190,y=500)
     boton_salir.config(width=15,bg="#FDF5E6")
-
-
-
-# validacion si es Administrador
-
-    if usuario and usuario.get('es_administrador',True):
-        boton_registrar = tk.Button(Bienvenida, text="CREAR USUARIO", command=lambda: open_register_window(Bienvenida))
-        boton_registrar.place(x=190, y=400)
-        boton_registrar.config(width=15, bg="#FDF5E6")
-
-        boton_eliminar = tk.Button(Bienvenida, text="ELIMINAR USUARIO", command=lambda: delete_user(Bienvenida))
-        boton_eliminar.place(x=190, y=450)
-        boton_eliminar.config(width=15, bg="#FDF5E6")
-
 
     Bienvenida.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
 

@@ -65,6 +65,8 @@ def login():
         else:
             error_label.config(text="Usuario o contraseña incorrectos", fg="red")
 
+            ventana.after(3000, lambda:error_label.config(text="", fg="#FDF5E6"))
+
 # Ventana
 ventana = tk.Tk()
 ventana.title("Ingreso al sistema")
@@ -103,9 +105,7 @@ botoni = tk.Button(text="INGRESAR", command=login)
 botoni.place(x=200, y=320)
 botoni.config(width=12, bg="#FDF5E6")
 
-label = Label(ventana, text="INGRESE AQUI SUS DATOS", background="#FDF5E6", font=("Open Sans", 20, 'bold'),
-              fg="#f5402e",
-              bg="#FDF5E6")
+label = Label(ventana, text="INGRESE AQUI SUS DATOS", background="#FDF5E6", font=("Open Sans", 20, 'bold'),fg="#f5402e",bg="#FDF5E6")
 label.pack()
 label.place(x=70, y=110)
 
