@@ -97,12 +97,22 @@ def abrir_gastos(ventana_Bienvenida):
     etiqueta_fecha = tk.Label(Ventana, font=('cabril', 10, 'bold'), background='#FDF5E6', foreground='BLACK')
     etiqueta_fecha.pack(anchor='center')
     actualizar_reloj()
+
 # Boton fecha
     boton_fecha = tk.Button(Ventana, text="FECHA")
-    boton_fecha.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=14)
+    boton_fecha.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10), width=14)
     boton_fecha.place(x=55, y=100)
 
-    etiqueta_cajero = tk.Label(Ventana, text="CAJERO")
+    def cambiar_color_hover(boton):
+        boton.config(bg="gray")
+
+    def restaurar_color(boton):
+        boton.config(bg="#FDF5E6")
+
+    boton_fecha.bind("<Enter>", lambda event: cambiar_color_hover(boton_fecha))
+    boton_fecha.bind("<Leave>", lambda event: restaurar_color(boton_fecha))
+
+    etiqueta_cajero = tk.Label(Ventana, text="Administrador")
     etiqueta_cajero.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10))
     etiqueta_cajero.place(x=55, y=160)
 
@@ -117,10 +127,6 @@ def abrir_gastos(ventana_Bienvenida):
     etiqueta_des = tk.Label(Ventana, text="DESCRIPCION GASTO")
     etiqueta_des.config(fg="black", bg="#FDF5E6", font=("Open Sans", 10))
     etiqueta_des.place(x=55, y=280)
-
-    etiqueta_fecha2 = tk.Label(Ventana, text="DD/MM/AAAA")
-    etiqueta_fecha2.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10))
-    etiqueta_fecha2.place(x=300, y=105)
 
     etiqueta_cajerou = tk.Label(Ventana, text="NOMBRE CAJERO ")
     etiqueta_cajerou = tk.Entry(Ventana, font=("Open Sans", 10), width=15)
@@ -142,6 +148,18 @@ def abrir_gastos(ventana_Bienvenida):
     volver = tk.Button(Ventana, text="VOLVER", command=volver)
     volver.config(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=14)
     volver.place(x=180, y=400)
+
+    def cambiar_color_hover(boton):
+        boton.config(bg="gray")
+
+    def restaurar_color(boton):
+        boton.config(bg="#FDF5E6")
+
+    boton_guardar_cierre.bind("<Enter>", lambda event: cambiar_color_hover(boton_guardar_cierre))
+    boton_guardar_cierre.bind("<Leave>", lambda event: restaurar_color(boton_guardar_cierre))
+
+    volver.bind("<Enter>", lambda event: cambiar_color_hover(volver))
+    volver.bind("<Leave>", lambda event: restaurar_color(volver))
 
 
 

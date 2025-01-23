@@ -4,6 +4,8 @@ from tkinter import filedialog,messagebox
 from time import strftime
 import mysql.connector
 
+
+
 contador_impresiones = 0
 
 def conectar_db():
@@ -81,6 +83,7 @@ def abrirCierreVentas(ventana_pago_pedido, modo_pago, total_general, vegetariana
     Ventana.resizable(False, False)
 
     Ventana.title()
+
     etiqueta_total = tk.Label(Ventana, text="CIERRE DE VENTAS")
     etiqueta_total.config(fg="red", bg="#FDF5E6", font=("Open Sans", 20, "bold"))
     etiqueta_total.pack()
@@ -179,17 +182,31 @@ def abrirCierreVentas(ventana_pago_pedido, modo_pago, total_general, vegetariana
     etiqueta_valor_total.place(x=350, y=200)
 
 
-    boton_precio = tk.Button(Ventana, text="REALIZAR PAGO", font=("Open Sans", 10), bg="#a6a6a6", width=15,command=lambda: guardar_en_bd(modo_pago,total_general,vegetariana,carnes,peperoni,pollo,bbq,bebidas,boton_precio))
+    boton_precio = tk.Button(Ventana, text="REALIZAR PAGO", font=("Open Sans", 10), bg="#FDF5E6", width=15,command=lambda: guardar_en_bd(modo_pago,total_general,vegetariana,carnes,peperoni,pollo,bbq,bebidas,boton_precio))
     boton_precio.place(x=210, y=400)
 
     boton_cierre = tk.Button(Ventana, text="IMPRIMIR FACTURA",command=lambda: generar_factura(Ventana, modo_pago, total_general, vegetariana, carnes,peperoni, pollo, bbq, bebidas))
-    boton_cierre.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
+    boton_cierre.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10), width=15)
     boton_cierre.place(x=210, y=450)
 
-    volver = tk.Button(Ventana, text="VOLVER", command=volver)
-    volver.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
+    volver = tk.Button(Ventana, text="Volver", command= volver)
+    volver.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10), width=15)
     volver.place(x=210, y=500)
 
+    def cambiar_color_hover(boton):
+        boton.config(bg="gray")
+
+    def restaurar_color(boton):
+        boton.config(bg="#FDF5E6")
+
+    boton_precio.bind("<Enter>", lambda event: cambiar_color_hover(boton_precio))
+    boton_precio.bind("<Leave>", lambda event: restaurar_color(boton_precio))
+
+    boton_cierre.bind("<Enter>", lambda event: cambiar_color_hover(boton_cierre))
+    boton_cierre.bind("<Leave>", lambda event: restaurar_color(boton_cierre))
+
+    volver.bind("<Enter>", lambda event: cambiar_color_hover(volver))
+    volver.bind("<Leave>", lambda event: restaurar_color(volver))
 
     Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
     Ventana.mainloop()

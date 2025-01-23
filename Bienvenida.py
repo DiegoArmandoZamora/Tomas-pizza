@@ -83,6 +83,15 @@ def open_register_window(Bienvenida):
         save_button = tk.Button(register_windows, text="Registrar", command=save_user)
         save_button.pack(pady=20)
 
+        def cambiar_color_hover(botoni):
+            botoni.config(bg="gray")
+
+        def restaurar_color(botoni):
+            botoni.config(bg="#FDF5E6")
+
+        save_button.bind("<Enter>", lambda event: cambiar_color_hover(save_button))
+        save_button.bind("<Leave>", lambda event: restaurar_color(save_button))
+
 
     # Función para eliminar un usuario
 def delete_user(Bienvenida):
@@ -121,6 +130,15 @@ def delete_user(Bienvenida):
 
         delete_button = tk.Button(delete_window, text="Eliminar Usuario", command=confirm_delete)
         delete_button.pack(pady=20)
+
+        def cambiar_color_hover(botoni):
+            botoni.config(bg="gray")
+
+        def restaurar_color(botoni):
+            botoni.config(bg="#FDF5E6")
+
+        delete_button.bind("<Enter>", lambda event: cambiar_color_hover(delete_button))
+        delete_button.bind("<Leave>", lambda event: restaurar_color(delete_button))
 
 
 def abrir_bienvenida(ventana_login,usuario):
@@ -185,6 +203,7 @@ def abrir_bienvenida(ventana_login,usuario):
     botonf.config(width=15, bg="#FDF5E6")
 
     if usuario.get('es_administrador',False):
+
         botong = tk.Button(Bienvenida, text="AGREGAR GASTO", command=gastos)
         botong.place(x=190, y=350)
         botong.config(width=15, bg="#FDF5E6")
@@ -196,10 +215,31 @@ def abrir_bienvenida(ventana_login,usuario):
         boton_eliminar = tk.Button(Bienvenida, text="ELIMINAR USUARIO", command=lambda: delete_user(Bienvenida))
         boton_eliminar.place(x=190, y=450)
         boton_eliminar.config(width=15, bg="#FDF5E6")
-    else:
-        botong = None
+
+        boton_registrar.bind("<Enter>", lambda event: cambiar_color_hover(boton_registrar))
+        boton_registrar.bind("<Leave>", lambda event: restaurar_color(boton_registrar))
+
+        boton_eliminar.bind("<Enter>", lambda event: cambiar_color_hover(boton_eliminar))
+        boton_eliminar.bind("<Leave>", lambda event: restaurar_color(boton_eliminar))
+
+        botong.bind("<Enter>", lambda event: cambiar_color_hover(botong))
+        botong.bind("<Leave>", lambda event: restaurar_color(botong))
 
 
+    def cambiar_color_hover(button):
+        button.config(bg="gray")
+
+    def restaurar_color(button):
+        button.config(bg="#FDF5E6")
+
+    botonr.bind("<Enter>", lambda event: cambiar_color_hover(botonr))
+    botonr.bind("<Leave>", lambda event: restaurar_color(botonr))
+
+    botonc.bind("<Enter>", lambda event: cambiar_color_hover(botonc))
+    botonc.bind("<Leave>", lambda event: restaurar_color(botonc))
+
+    botonf.bind("<Enter>", lambda event: cambiar_color_hover(botonf))
+    botonf.bind("<Leave>", lambda event: restaurar_color(botonf))
 
     # boton de salida de Bienvenida
     def salir():
@@ -209,6 +249,9 @@ def abrir_bienvenida(ventana_login,usuario):
     boton_salir = tkinter.Button(Bienvenida,text="SALIR", command=salir)
     boton_salir.place(x=190,y=500)
     boton_salir.config(width=15,bg="#FDF5E6")
+
+    boton_salir.bind("<Enter>", lambda event: cambiar_color_hover(boton_salir))
+    boton_salir.bind("<Leave>", lambda event: restaurar_color(boton_salir))
 
     Bienvenida.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
 

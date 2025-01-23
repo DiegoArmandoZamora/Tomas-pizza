@@ -4,13 +4,19 @@ import CierreVentas
 
 contador_pedidos = 0
 
+ventana_pago_anterior = None
 
 def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, bebidas, numero_pedido):
+    global ventana_pago_anterior
+    if ventana_pago_anterior is not None and ventana_pago_anterior.winfo_exists():
+        ventana_pago_anterior.destroy()
     Ventana = tk.Toplevel(ventana_Pedido)
     Ventana.title("ventana Tomas")
     Ventana.geometry(f"800x600+270+50")
     Ventana.configure(bg="#FDF5E6")
     Ventana.resizable(False, False)
+
+    ventana_pago_anterior = Ventana
 
 
 # Numero de pedido
@@ -25,6 +31,7 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta_total.pack()
 
     def cierreVentas():
+        boton_precio.config(state=tk.DISABLED)
         Ventana.withdraw()
         CierreVentas.abrirCierreVentas(Ventana, pago, total_general,vegetariana, carnes, peperoni, pollo, bbq, bebidas)
 
@@ -145,14 +152,17 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
         etiqueta_pago.config(text=f"PEDIDO PAGADO CON: {pago}", font=("Open Sans", 10))
         etiqueta_pago.place(x=58, y=400)
 
+        boton_pagos.config(state=tk.DISABLED)
+
         CierreVentas.abrirCierreVentas(Ventana, pago, total_general, vegetariana, carnes, peperoni, pollo, bbq, bebidas)
 
     etiqueta_pago = tk.Label(Ventana, text="")
     etiqueta_pago.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10))
     etiqueta_pago.place(x=58, y=430)
 
+
     boton_pagos = tk.Button(Ventana, text="FORMA DE PAGO", command=desplegar_pagos)
-    boton_pagos.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10))
+    boton_pagos.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10))
     boton_pagos.place(x=60, y=400)
 
     pagos_menu = tk.Menu(Ventana, tearoff=0)
@@ -170,14 +180,39 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta_total.place(x=550, y=300)
 
 
-    boton_precio = tk.Button(Ventana, text="REALIZAR PAGO", command=cierreVentas, width=15, height=1, bg="#a6a6a6",
-                             font=("Open Sans", 10))
-    boton_precio.place(x=350, y=400)
+    #boton_precio = tk.Button(Ventana, text="REALIZAR PAGO", command=cierreVentas, width=15, height=1, bg="#FDF5E6",font=("Open Sans", 10))
+    #boton_precio.place(x=350, y=400)
+
+    def habilitar_pago():
+        boton_precio.config(state=tk.NORMAL)
 
     volver = tk.Button(Ventana, text="VOLVER", command=volver)
-    volver.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
+    volver.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10), width=15)
     volver.place(x=350, y=450)
+
+
+    def cambiar_color_hover(botoni):
+        botoni.config(bg="gray")
+
+    def restaurar_color(botoni):
+        botoni.config(bg="#FDF5E6")
+
+    #boton_precio.bind("<Enter>", lambda event: cambiar_color_hover(boton_precio))
+    #boton_precio.bind("<Leave>", lambda event: restaurar_color(boton_precio))
+
+    volver.bind("<Enter>", lambda event: cambiar_color_hover(volver))
+    volver.bind("<Leave>", lambda event: restaurar_color(volver))
+
+    boton_pagos.bind("<Enter>", lambda event: cambiar_color_hover(boton_pagos))
+    boton_pagos.bind("<Leave>", lambda event: restaurar_color(boton_pagos))
 
     Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
 
     Ventana.mainloop()
+def nueva_toma_de_pedido():
+   habilitar_pago()
+   boton_pagos()
+   pago_seleccionado = "EFECTIVO"
+   boton_pagos.config(text=f"FORMA DE PAGO: {pago_seleccionado}")
+
+

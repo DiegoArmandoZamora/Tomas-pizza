@@ -97,14 +97,34 @@ def abrir_comparar_fechas(ventana_Bienvenida):
                     etiqueta_cierre_b.config(text=f"CIERRE FECHA B: ${cierre_b}")
                     etiqueta_fecha_b.config(text=f"Fecha B consulta: {fecha_b}")
 
+        def borrar_consulta():
+            etiqueta_gastos_a.config(text="GASTOS FECHA A:")
+            etiqueta_cierre_a.config(text="CIERRE FECHA A:")
+            etiqueta_fecha_a.config(text="Fecha A Consultar")
+            etiqueta_gastos_b.config(text="GASTOS FECHA B:")
+            etiqueta_cierre_b.config(text="CIERRE FECHA B:")
+            etiqueta_fecha_b.config(text="Fecha B Consultar")
+
 
         boton_fecha_a = tk.Button(Ventana, text="FECHA A", command=seleccionar_fecha_a)
-        boton_fecha_a.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=13)
+        boton_fecha_a.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10), width=13)
         boton_fecha_a.place(x=50,y=100)
 
         boton_fecha_b = tk.Button(Ventana, text="FECHA B", command=seleccionar_fecha_b)
-        boton_fecha_b.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=13)
+        boton_fecha_b.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10), width=13)
         boton_fecha_b.place(x=320, y=100)
+
+        def cambiar_color_hover(boton):
+            boton.config(bg="gray")
+
+        def restaurar_color(boton):
+            boton.config(bg="#FDF5E6")
+
+        boton_fecha_a.bind("<Enter>", lambda event: cambiar_color_hover(boton_fecha_a))
+        boton_fecha_a.bind("<Leave>", lambda event: restaurar_color(boton_fecha_a))
+
+        boton_fecha_b.bind("<Enter>", lambda event: cambiar_color_hover(boton_fecha_b))
+        boton_fecha_b.bind("<Leave>", lambda event: restaurar_color(boton_fecha_b))
 
         etiqueta_total_pizas = tk.Label(Ventana, text="GASTOS FECHA A: ")
         etiqueta_total_pizas.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10))
@@ -138,10 +158,27 @@ def abrir_comparar_fechas(ventana_Bienvenida):
         etiqueta_fecha_b.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10))
         etiqueta_fecha_b.place(x=320, y=300)
 
+        boton_borrar = tk.Button(Ventana, text="BORRAR CONSULTA", command=borrar_consulta)
+        boton_borrar.configure(fg="black", bg="#ff6666", font=("Open Sans", 10), width=16)
+        boton_borrar.place(x=190, y=360)
+
 
         volver_btn = tk.Button(Ventana, text="VOLVER", command=volver)
         volver_btn.configure(fg="black", bg="#a6a6a6", font=("Open Sans", 10), width=15)
         volver_btn.place(x=190, y=410)
+
+        def cambiar_color_hover(boton):
+            boton.config(bg="gray")
+
+        def restaurar_color(boton):
+            boton.config(bg="#FDF5E6")
+
+        boton_borrar.bind("<Enter>", lambda event: cambiar_color_hover(boton_borrar))
+        boton_borrar.bind("<Leave>", lambda event: restaurar_color(boton_borrar))
+
+        volver_btn.bind("<Enter>", lambda event: cambiar_color_hover(volver_btn))
+        volver_btn.bind("<Leave>", lambda event: restaurar_color(volver_btn))
+
 
         Ventana.iconbitmap( r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
         Ventana.mainloop()

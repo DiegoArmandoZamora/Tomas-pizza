@@ -2,11 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from Bienvenida import abrir_bienvenida
-import bcrypt
 import messagebox
 import mysql.connector
 from PIL import Image, ImageTk
-import Bienvenida
+import os
+
 
 
 # conexion base de datos
@@ -26,7 +26,7 @@ def conectar_db():
         messagebox.showerror("Error de coneccion",f"Error:{err}")
         return None
 
-    # verificacion de usuario Administrador de contaseñas
+# verificacion de usuario Administrador de contaseñas
 
 def verificar_usuario(username,password):
     try:
@@ -67,6 +67,14 @@ def login():
 
             ventana.after(3000, lambda:error_label.config(text="", fg="#FDF5E6"))
 
+def cambiar_color_hover(botoni):
+    botoni.config(bg="gray")
+
+
+def restaurar_color(botoni):
+    botoni.config(bg="#FDF5E6")
+
+
 # Ventana
 ventana = tk.Tk()
 ventana.title("Ingreso al sistema")
@@ -100,10 +108,13 @@ password_label.pack()
 password_entry = ttk.Entry(frame_login, font=("Open Sans", 12), width=15, show="*")
 password_entry.pack(pady=5)
 
+
 # Boton ingresar
-botoni = tk.Button(text="INGRESAR", command=login)
+botoni = tk.Button(ventana, text="INGRESAR", command=login, width=12, bg="#FDF5E6")
 botoni.place(x=200, y=320)
-botoni.config(width=12, bg="#FDF5E6")
+
+botoni.bind("<Enter>", lambda event: cambiar_color_hover(botoni))
+botoni.bind("<Leave>", lambda event: restaurar_color(botoni))
 
 label = Label(ventana, text="INGRESE AQUI SUS DATOS", background="#FDF5E6", font=("Open Sans", 20, 'bold'),fg="#f5402e",bg="#FDF5E6")
 label.pack()
@@ -115,8 +126,7 @@ error_label.config(bg="#FDF5E6")
 error_label.pack(pady=(5, 0))
 error_label.place(x=150, y=380)
 
-redes = Label(ventana, text="Encuéntranos en nuestras redes sociales", background="#FDF5E6", font=("Open Sans", 13),
-              fg="black", bg="#FDF5E6")
+redes = Label(ventana, text="Encuéntranos en nuestras redes sociales", background="#FDF5E6", font=("Open Sans", 13),fg="black", bg="#FDF5E6")
 redes.pack()
 redes.place(x=106, y=430)
 

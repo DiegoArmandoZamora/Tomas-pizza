@@ -2,13 +2,14 @@ import tkinter
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-
 import messagebox
-
 import Bienvenida
 import TotalPagar
 from TotalPagar import abrirPagoPedido, contador_pedidos
 import random
+import CierreVentas
+
+
 
 
 
@@ -59,10 +60,17 @@ def abrir_registrar_pedido(ventana_Bienvenida):
             return
 
         contador_pedidos += 1
+# para que se reinicie la toma de pedido
+
+        entryVegetariana.delete(0, tk.END)
+        entryCarnes.delete(0, tk.END)
+        entryPeperoni.delete(0, tk.END)
+        entryPollo.delete(0, tk.END)
+        entryBbq.delete(0, tk.END)
+        entryBebidas.delete(0, tk.END)
 
         Ventana.withdraw()
         TotalPagar.abrirPagoPedido(Ventana, vegetariana, carnes, peperoni, pollo, bbq, bebidas,contador_pedidos)
-
 
 
     def volver():
@@ -137,17 +145,35 @@ def abrir_registrar_pedido(ventana_Bienvenida):
     entryBebidas = tk.Entry(Ventana, font=("Open Sans", 10), width=5)
     entryBebidas.place(x=375, y=350)
 
-    generar = tk.Button(Ventana, text="GENERAR PEDIDO", bg="#a6a6a6", command=pagoPedido)
+    def cambiar_color_hover(button):
+        button.config(bg="gray")
+
+    # Función para restaurar el color original del botón
+    def restaurar_color(button):
+        button.config(bg="#FDF5E6")
+
+
+
+    generar = tk.Button(Ventana, text="GENERAR PEDIDO", bg="#FDF5E6", command=pagoPedido)
     generar.place(x=190, y=400)
     generar.config(width=18)
 
-    volver = tk.Button(Ventana, text="VOLVER", bg="#a6a6a6", command=volver)
+    volver = tk.Button(Ventana, text="VOLVER", bg="#FDF5E6", command=volver)
     volver.place(x=190, y=450)
     volver.config(width=18)
 
-    boton_reiniciar = tk.Button(Ventana, text="REINICIAR PEDIDO", bg="#a6a6a6", command=reiniciar_pedido)
+    boton_reiniciar = tk.Button(Ventana, text="REINICIAR PEDIDO", bg="#FDF5E6", command=reiniciar_pedido)
     boton_reiniciar.place(x=190, y=500)
     boton_reiniciar.config(width=18)
+
+    generar.bind("<Enter>", lambda event: cambiar_color_hover(generar))
+    generar.bind("<Leave>", lambda event: restaurar_color(generar))
+
+    volver.bind("<Enter>", lambda event: cambiar_color_hover(volver))
+    volver.bind("<Leave>", lambda event: restaurar_color(volver))
+
+    boton_reiniciar.bind("<Enter>", lambda event: cambiar_color_hover(boton_reiniciar))
+    boton_reiniciar.bind("<Leave>", lambda event: restaurar_color(boton_reiniciar))
 
     Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
     Ventana.mainloop()
