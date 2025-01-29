@@ -8,6 +8,8 @@ ventana_pago_anterior = None
 
 def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, bebidas, numero_pedido):
     global ventana_pago_anterior
+    global contador_pedidos
+
     if ventana_pago_anterior is not None and ventana_pago_anterior.winfo_exists():
         ventana_pago_anterior.destroy()
     Ventana = tk.Toplevel(ventana_Pedido)
@@ -24,6 +26,15 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta_numero_pedido = tk.Label(Ventana, text=f"NUMERO DE PEDIDO: {numero_pedido}")
     etiqueta_numero_pedido.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 12))
     etiqueta_numero_pedido.place(x=55, y=260)
+
+    contador_pedidos +=1
+    if contador_pedidos > 200:
+        contador_pedidos = 1
+
+    etiqueta_turno = tk.Label(Ventana,text=f"TURNOS:{contador_pedidos-1}")
+    etiqueta_turno.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 12))
+    etiqueta_turno.place(x=205,y=260)
+
 
    # Ventana.title()
     etiqueta_total = tk.Label(Ventana, text="TOTAL A PAGAR")
@@ -126,9 +137,9 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta_pedido.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10))
     etiqueta_pedido.place(x=55, y=340)
 
-
     precio_pizza = 25000
     precio_bebida = 3000
+
 
     total_pizzas = (vegetariana + carnes + peperoni + pollo + bbq) * precio_pizza
     total_bebidas = bebidas * precio_bebida
@@ -180,9 +191,6 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta_total.place(x=550, y=300)
 
 
-    #boton_precio = tk.Button(Ventana, text="REALIZAR PAGO", command=cierreVentas, width=15, height=1, bg="#FDF5E6",font=("Open Sans", 10))
-    #boton_precio.place(x=350, y=400)
-
     def habilitar_pago():
         boton_precio.config(state=tk.NORMAL)
 
@@ -197,8 +205,6 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     def restaurar_color(botoni):
         botoni.config(bg="#FDF5E6")
 
-    #boton_precio.bind("<Enter>", lambda event: cambiar_color_hover(boton_precio))
-    #boton_precio.bind("<Leave>", lambda event: restaurar_color(boton_precio))
 
     volver.bind("<Enter>", lambda event: cambiar_color_hover(volver))
     volver.bind("<Leave>", lambda event: restaurar_color(volver))

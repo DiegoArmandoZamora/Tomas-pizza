@@ -63,13 +63,10 @@ def generar_factura(ventana, modo_pago, total_general, vegetariana, carnes, pepe
     factura += f"\nTotal: ${total_general:.2f}\n"
 
     # Imprimir directamente la factura directamente a la impresora
+
     try:
-        archivo_temporal = "temp_factura.txt"
-        with open(archivo_temporal, 'w') as f:
-            f.write(factura)
-        os.system(f'notepad.exe /p "{archivo_temporal}"')
+        os.system(f'echo "{factura}"| lp')
         messagebox.showinfo("Factura Impresa", "La Factura se esta Imprimiendo.")
-        os.remove(archivo_temporal)
     except Exception as e:
         messagebox.showinfo("Error al Imprimir", "Impresora no encontrada revise coneccion")
 

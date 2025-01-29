@@ -98,10 +98,6 @@ def abrir_gastos(ventana_Bienvenida):
     etiqueta_fecha.pack(anchor='center')
     actualizar_reloj()
 
-# Boton fecha
-    boton_fecha = tk.Button(Ventana, text="FECHA")
-    boton_fecha.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10), width=14)
-    boton_fecha.place(x=55, y=100)
 
     def cambiar_color_hover(boton):
         boton.config(bg="gray")
@@ -109,10 +105,7 @@ def abrir_gastos(ventana_Bienvenida):
     def restaurar_color(boton):
         boton.config(bg="#FDF5E6")
 
-    boton_fecha.bind("<Enter>", lambda event: cambiar_color_hover(boton_fecha))
-    boton_fecha.bind("<Leave>", lambda event: restaurar_color(boton_fecha))
-
-    etiqueta_cajero = tk.Label(Ventana, text="Administrador")
+    etiqueta_cajero = tk.Label(Ventana, text="ADMINISTRADOR")
     etiqueta_cajero.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10))
     etiqueta_cajero.place(x=55, y=160)
 

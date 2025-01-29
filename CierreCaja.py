@@ -2,9 +2,12 @@ import tkinter as tk
 from tkinter import simpledialog
 from tkinter import messagebox
 import mysql.connector
+from django.db.models.expressions import result
+from datetime import datetime,date
 
 
-def abrir_cierre_caja(ventana_Bienvenida):
+
+def abrir_cierre_caja(ventana_Bienvenida, boton_registrar_pedido):
     Ventana = tk.Toplevel(ventana_Bienvenida)
     Ventana.title("Ventana Tomas")
     Ventana.geometry(f"470x600+400+50")
@@ -82,6 +85,8 @@ def abrir_cierre_caja(ventana_Bienvenida):
                         if not confirmacion:
                             return
 
+                        hora_actual = datetime.now().strftime("%H:%M:%S")
+
                         conexion = mysql.connector.connect(
 
                             host="127.0.0.1",
@@ -107,6 +112,8 @@ def abrir_cierre_caja(ventana_Bienvenida):
                             conexion.commit()
                             messagebox.showinfo("Cierre guardado", "El cierre esta guardado en la base de datos.")
 
+                            boton_registrar_pedido.config(state="disabled")
+
                         conexion.close()
 
                     except mysql.connector.Error as err:
@@ -121,6 +128,35 @@ def abrir_cierre_caja(ventana_Bienvenida):
                 messagebox.showerror("Error en la base de datos", f"Error al consultar la base de datos: {err}")
         else:
             messagebox.showwarning("Fecha inválida", "Por favor, ingresa una fecha válida.")
+
+    def verificar_estado_boton():
+        try:
+            conexion = mysql.connector.connect(
+                host="127.0.0.1",
+                user="root",
+                password="",
+                database="Tomas_pizza",
+                port="3306"
+            )
+            cursor = conexion.cursor()
+
+            consulta = "SELECT MAX(Ventas_fecha) FROM cierre"
+            cursor.execute(consulta)
+            resultado = cursor.fetchone()
+            ultima_fecha_cierre = resultado[0]
+
+
+            fecha_actual = date.today().strftime("%Y-%m-%d")
+
+            if ultima_fecha_cierre is None or str(ultima_fecha_cierre) < fecha_actual:
+                boton_registrar_pedido.config(state="normal")
+
+            conexion.close()
+
+        except  mysql.connector.Error as err:
+            messagebox.showerror("Error", f"No se puede verificar el estado del boton: {err}")
+
+    verificar_estado_boton()
 
     # Botón para seleccionar la fecha
     boton_fecha = tk.Button(Ventana, text="CONSULTAR FECHA", command=consultar_ventas)

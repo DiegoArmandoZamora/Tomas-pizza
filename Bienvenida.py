@@ -44,14 +44,19 @@ def user_exists(username):
 def open_register_window(Bienvenida):
         register_windows = Toplevel(Bienvenida)
         register_windows.title("Crear Nuevo Usuario")
+        register_windows.config(bg="#FDF5E6")
         register_windows.geometry("400x300")
 
+        register_windows.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+
         username_label = tk.Label(register_windows, text="Usuario")
+        username_label.config(bg="#FDF5E6")
         username_label.pack(pady=10)
         username_entry = ttk.Entry(register_windows, font=("Open Sans", 12), width=20)
         username_entry.pack(pady=10)
 
         password_label = tk.Label(register_windows, text="Contraseña")
+        password_label.config(bg="#FDF5E6")
         password_label.pack(pady=10)
         password_entry = ttk.Entry(register_windows, font=("Open Sans", 12), width=20, show="*")
         password_entry.pack(pady=10)
@@ -93,13 +98,18 @@ def open_register_window(Bienvenida):
         save_button.bind("<Leave>", lambda event: restaurar_color(save_button))
 
 
+
     # Función para eliminar un usuario
 def delete_user(Bienvenida):
         delete_window = Toplevel(Bienvenida)
+        delete_window.config(bg="#FDF5E6")
         delete_window.title("Eliminar Usuario")
         delete_window.geometry("400x200")
 
+        delete_window.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+
         username_label = tk.Label(delete_window, text="Nombre de Usuario")
+        username_label.config(bg="#FDF5E6")
         username_label.pack(pady=10)
         username_entry = ttk.Entry(delete_window, font=("Open Sans", 12), width=20)
         username_entry.pack(pady=10)
@@ -154,7 +164,7 @@ def abrir_bienvenida(ventana_login,usuario):
 
     def cierreCaja():
         Bienvenida.withdraw()
-        CierreCaja.abrir_cierre_caja(Bienvenida)
+        CierreCaja.abrir_cierre_caja(Bienvenida,botonr)
 
     def compararFechas():
         Bienvenida.withdraw()

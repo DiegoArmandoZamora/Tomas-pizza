@@ -56,7 +56,7 @@ def abrir_registrar_pedido(ventana_Bienvenida):
               raise ValueError("Debe ingresar la cantidad de un producto para poder continuar.")
 
         except ValueError as ve:
-            messagebox.showerror("Error", f"Porfavor Ingresar Cantidades Para Contiunuar")
+            messagebox.showerror("Error", f"Porfavor Ingresar Cantidades Para Continuar")
             return
 
         contador_pedidos += 1
