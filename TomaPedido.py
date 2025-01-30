@@ -8,6 +8,7 @@ import TotalPagar
 from TotalPagar import abrirPagoPedido, contador_pedidos
 import random
 import CierreVentas
+from PIL import Image, ImageTk
 
 
 
@@ -19,6 +20,7 @@ def abrir_registrar_pedido(ventana_Bienvenida):
     Ventana.geometry(f"500x600+400+50")
     Ventana.config(bg="#FDF5E6")
     Ventana.resizable(False, False)
+
 
 
     def reiniciar_pedido():
@@ -95,7 +97,15 @@ def abrir_registrar_pedido(ventana_Bienvenida):
     etiqueta_fecha = tk.Label(Ventana, font=('cabril', 10, 'bold'), background='#FDF5E6', foreground='BLACK')
     etiqueta_fecha.pack(anchor='center')
     actualizar_reloj()
-    # Fin fehca y hora
+
+    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 6.jpg"
+    imagen_fondo = Image.open(ruta_imagen_fondo)
+    imagen_fondo = imagen_fondo.resize((500, 600))
+    imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+    label_fondo = tk.Label(Ventana, image=imagen_fondo)
+    label_fondo.place(x=0, y=0, relwidth=1, relheight=1)
+
 
     label = tk.Label(Ventana, text="TOMA DE PEDIDO", font=("Open", 20, "bold"), fg="#f5402e", bg="#FDF5E6")
     label.pack()
@@ -176,4 +186,9 @@ def abrir_registrar_pedido(ventana_Bienvenida):
     boton_reiniciar.bind("<Leave>", lambda event: restaurar_color(boton_reiniciar))
 
     Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+
+
+
+    Ventana.imagen_fondo = imagen_fondo
+
     Ventana.mainloop()

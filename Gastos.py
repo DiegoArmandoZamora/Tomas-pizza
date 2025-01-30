@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import mysql.connector
+from PIL import Image, ImageTk
 
 
 
@@ -11,14 +12,12 @@ def abrir_gastos(ventana_Bienvenida):
     Ventana.configure(bg="#FDF5E6")
     Ventana.resizable(False, False)
 
+
     def volver():
         Ventana.destroy()
         ventana_Bienvenida.deiconify()
 
-    Ventana.title()
-    etiqueta_total = tk.Label(Ventana, text="GASTOS DE OPERACION")
-    etiqueta_total.config(fg="red", bg="#FDF5E6", font=("Open Sans", 20, "bold"))
-    etiqueta_total.pack()
+
 
     def volver():
         Ventana.destroy()
@@ -91,6 +90,14 @@ def abrir_gastos(ventana_Bienvenida):
     marco_derecho = tk.Frame(Ventana, background='#FDF5E6')
     marco_derecho.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
+    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 3.jpg"
+    imagen_fondo = Image.open(ruta_imagen_fondo)
+    imagen_fondo = imagen_fondo.resize((500, 600))
+    imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+    label_fondo = tk.Label(Ventana, image=imagen_fondo)
+    label_fondo.place(x=0, y=0, relwidth=1, relheight=1)
+
     etiqueta_hora = tk.Label(Ventana, font=('cabril', 10, 'bold'), background='#FDF5E6', foreground='BLACK')
     etiqueta_hora.pack(anchor='center')
 
@@ -104,6 +111,11 @@ def abrir_gastos(ventana_Bienvenida):
 
     def restaurar_color(boton):
         boton.config(bg="#FDF5E6")
+
+    Ventana.title()
+    etiqueta_total = tk.Label(Ventana, text="GASTOS DE OPERACION")
+    etiqueta_total.config(fg="red", bg="#FDF5E6", font=("Open Sans", 20, "bold"))
+    etiqueta_total.place(x=55, y=80)
 
     etiqueta_cajero = tk.Label(Ventana, text="ADMINISTRADOR")
     etiqueta_cajero.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10))

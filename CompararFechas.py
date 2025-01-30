@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import simpledialog
-
+from PIL import Image, ImageTk
 import messagebox
 import mysql.connector
 from time import strftime
@@ -40,6 +40,7 @@ def abrir_comparar_fechas(ventana_Bienvenida):
         Ventana.configure(bg="#FDF5E6")
         Ventana.resizable(False, False)
 
+
         # Fecha y hora
 
         from time import strftime
@@ -55,8 +56,17 @@ def abrir_comparar_fechas(ventana_Bienvenida):
             ventana_Bienvenida.deiconify()
 
 
+
         marco_derecho = tk.Frame(Ventana, background='#FDF5E6')
         marco_derecho.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 1.jpg"
+        imagen_fondo = Image.open(ruta_imagen_fondo)
+        imagen_fondo = imagen_fondo.resize((500, 600))
+        imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+        label_fondo = tk.Label(Ventana, image=imagen_fondo)
+        label_fondo.place(x=0, y=0, relwidth=1, relheight=1)
 
         etiqueta_hora = tk.Label(Ventana, font=('cabril', 10, 'bold'), background='#FDF5E6', foreground='BLACK')
         etiqueta_hora.pack(anchor='center')

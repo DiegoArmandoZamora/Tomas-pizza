@@ -55,6 +55,7 @@ def login():
 
     if username == "" or password == "":
         error_label.config(text="Por favor, ingrese usuario y contraseña", fg="red")
+        ventana.after(4000, lambda: error_label.config(text=""))
     else:
         usuario = verificar_usuario(username, password)
         if usuario:
@@ -65,7 +66,7 @@ def login():
         else:
             error_label.config(text="Usuario o contraseña incorrectos", fg="red")
 
-            ventana.after(3000, lambda:error_label.config(text="", fg="#FDF5E6"))
+            ventana.after(4000, lambda:error_label.config(text=""))
 
 def cambiar_color_hover(botoni):
     botoni.config(bg="gray")
@@ -81,6 +82,14 @@ ventana.title("Ingreso al sistema")
 ventana.geometry(f"500x600+400+50")
 ventana.config(bg="#FDF5E6")
 ventana.resizable(False, False)
+
+ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 4.jpg"
+imagen_fondo = Image.open(ruta_imagen_fondo)
+imagen_fondo = imagen_fondo.resize((500,600))
+imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+label_fondo = tk.Label(ventana, image=imagen_fondo)
+label_fondo.place(x=0, y=0, relwidth=1,relheight=1)
 
 # Crear un marco para el formulario de login1
 frame_login = tk.Frame(ventana, padx=20, pady=20)

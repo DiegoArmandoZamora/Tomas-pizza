@@ -4,6 +4,7 @@ from tkinter import messagebox
 import mysql.connector
 from django.db.models.expressions import result
 from datetime import datetime,date
+from PIL import Image, ImageTk
 
 
 
@@ -14,9 +15,21 @@ def abrir_cierre_caja(ventana_Bienvenida, boton_registrar_pedido):
     Ventana.configure(bg="#FDF5E6")
     Ventana.resizable(False, False)
 
+# fondo de pantalla
+
+    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 3.jpg"
+    imagen_fondo = Image.open(ruta_imagen_fondo)
+    imagen_fondo = imagen_fondo.resize((500, 600))
+    imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+    label_fondo = tk.Label(Ventana, image=imagen_fondo)
+    label_fondo.place(x=0, y=0, relwidth=1, relheight=1)
+
     etiqueta_total = tk.Label(Ventana, text="CIERRE DE CAJA")
     etiqueta_total.config(fg="red", bg="#FDF5E6", font=("Open Sans", 20, "bold"))
     etiqueta_total.pack()
+
+
 
     def volver():
         Ventana.destroy()

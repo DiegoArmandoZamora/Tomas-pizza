@@ -3,7 +3,7 @@ import os
 from tkinter import filedialog,messagebox
 from time import strftime
 import mysql.connector
-
+from PIL import Image, ImageTk
 
 
 contador_impresiones = 0
@@ -81,9 +81,11 @@ def abrirCierreVentas(ventana_pago_pedido, modo_pago, total_general, vegetariana
 
     Ventana.title()
 
+
     etiqueta_total = tk.Label(Ventana, text="CIERRE DE VENTAS")
     etiqueta_total.config(fg="red", bg="#FDF5E6", font=("Open Sans", 20, "bold"))
     etiqueta_total.pack()
+
 
 
     def volver():
@@ -105,12 +107,23 @@ def abrirCierreVentas(ventana_pago_pedido, modo_pago, total_general, vegetariana
     marco_derecho = tk.Frame(Ventana, background='#FDF5E6')
     marco_derecho.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
+    # imagenn de fondo de pantalla
+    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 3.jpg"
+    imagen_fondo = Image.open(ruta_imagen_fondo)
+    imagen_fondo = imagen_fondo.resize((500, 600))
+    imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+    label_fondo = tk.Label(Ventana, image=imagen_fondo)
+    label_fondo.place(x=0, y=0, relwidth=1, relheight=1)
+
     etiqueta_hora = tk.Label(Ventana, font=('cabril', 10, 'bold'), background='#FDF5E6', foreground='BLACK')
     etiqueta_hora.pack(anchor='center')
 
     etiqueta_fecha = tk.Label(Ventana, font=('cabril', 10, 'bold'), background='#FDF5E6', foreground='BLACK')
     etiqueta_fecha.pack(anchor='center')
     actualizar_reloj()
+
+
 
     y_pos = 250
     if vegetariana > 0:

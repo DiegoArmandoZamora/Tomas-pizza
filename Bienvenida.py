@@ -7,6 +7,7 @@ import TomaPedido
 import CierreCaja
 import CompararFechas
 import Gastos
+from PIL import Image, ImageTk
 
 
 # Conexión a la base de datos
@@ -47,7 +48,18 @@ def open_register_window(Bienvenida):
         register_windows.config(bg="#FDF5E6")
         register_windows.geometry("400x300")
 
+
         register_windows.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+
+        ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 5.jpg"
+        imagen_fondo = Image.open(ruta_imagen_fondo)
+        imagen_fondo = imagen_fondo.resize((400, 300))
+        imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+        register_windows.imagen_fondo = imagen_fondo
+        label_fondo = tk.Label(register_windows, image=imagen_fondo)
+        label_fondo.place(x=0, y=0, relwidth=1, relheight=1)
+
 
         username_label = tk.Label(register_windows, text="Usuario")
         username_label.config(bg="#FDF5E6")
@@ -60,6 +72,8 @@ def open_register_window(Bienvenida):
         password_label.pack(pady=10)
         password_entry = ttk.Entry(register_windows, font=("Open Sans", 12), width=20, show="*")
         password_entry.pack(pady=10)
+
+
 
         def save_user():
             username = username_entry.get()
@@ -104,9 +118,18 @@ def delete_user(Bienvenida):
         delete_window = Toplevel(Bienvenida)
         delete_window.config(bg="#FDF5E6")
         delete_window.title("Eliminar Usuario")
-        delete_window.geometry("400x200")
+        delete_window.geometry("400x300")
 
         delete_window.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+
+        ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 5.jpg"
+        imagen_fondo = Image.open(ruta_imagen_fondo)
+        imagen_fondo = imagen_fondo.resize((400, 300))
+        imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+        delete_window.imagen_fondo = imagen_fondo
+        label_fondo = tk.Label(delete_window, image=imagen_fondo)
+        label_fondo.place(x=0, y=0, relwidth=1, relheight=1)
 
         username_label = tk.Label(delete_window, text="Nombre de Usuario")
         username_label.config(bg="#FDF5E6")
@@ -157,6 +180,15 @@ def abrir_bienvenida(ventana_login,usuario):
     Bienvenida.config(width=500, height=600, bg="#FDF5E6")
     Bienvenida.geometry(f"500x600+400+50")
     Bienvenida.resizable(False, False)
+
+    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 5.jpg"
+    imagen_fondo = Image.open(ruta_imagen_fondo)
+    imagen_fondo = imagen_fondo.resize((500, 600))
+    imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+    Bienvenida.imagen_fondo = imagen_fondo
+    label_fondo = tk.Label(Bienvenida, image=imagen_fondo)
+    label_fondo.place(x=0, y=0, relwidth=1, relheight=1)
 
     def registrarPedido():
         Bienvenida.withdraw()

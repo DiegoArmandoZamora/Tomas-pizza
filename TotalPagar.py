@@ -1,6 +1,7 @@
 import tkinter as tk
 import random
 import CierreVentas
+from PIL import Image, ImageTk
 
 contador_pedidos = 0
 
@@ -21,6 +22,8 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     ventana_pago_anterior = Ventana
 
 
+
+
 # Numero de pedido
 
     etiqueta_numero_pedido = tk.Label(Ventana, text=f"NUMERO DE PEDIDO: {numero_pedido}")
@@ -36,10 +39,7 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta_turno.place(x=205,y=260)
 
 
-   # Ventana.title()
-    etiqueta_total = tk.Label(Ventana, text="TOTAL A PAGAR")
-    etiqueta_total.config(fg="#f5402e", bg="#FDF5E6", font=("Open Sans", 20, "bold"))
-    etiqueta_total.pack()
+
 
     def cierreVentas():
         boton_precio.config(state=tk.DISABLED)
@@ -49,6 +49,8 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     def volver():
         Ventana.destroy()
         ventana_Pedido.deiconify()
+
+
 
     # CODIGO FECHA Y HORA
     from time import strftime
@@ -62,6 +64,16 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     marco_derecho = tk.Frame(Ventana, background='#FDF5E6')
     marco_derecho.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
+# fondo de pantalla
+    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 1.jpg"
+    imagen_fondo = Image.open(ruta_imagen_fondo)
+    imagen_fondo = imagen_fondo.resize((800, 600))
+    imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+    abrirPagoPedido.imagen_fondo = imagen_fondo
+    label_fondo = tk.Label(Ventana, image=imagen_fondo)
+    label_fondo.place(x=0, y=0, relwidth=1, relheight=1)
+
     etiqueta_hora = tk.Label(Ventana, font=('cabril', 10, 'bold'), background='#FDF5E6', foreground='BLACK')
     etiqueta_hora.pack(anchor='center')
 
@@ -69,10 +81,26 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta_fecha.pack(anchor='center')
     actualizar_reloj()
 
+    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 1.jpg"
+    imagen_fondo = Image.open(ruta_imagen_fondo)
+    imagen_fondo = imagen_fondo.resize((800, 600))
+    imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
+
+    abrirPagoPedido.imagen_fondo = imagen_fondo
+    label_fondo = tk.Label(Ventana, image=imagen_fondo)
+    label_fondo.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Ventana.title()
+    etiqueta_total = tk.Label(Ventana, text="TOTAL A PAGAR")
+    etiqueta_total.config(fg="#f5402e", bg="#FDF5E6", font=("Open Sans", 20, "bold"))
+    etiqueta_total.place(x=290,y=30)
+
+
     Ventana.title()
     etiqueta_pedido = tk.Label(Ventana, text="PEDIDO SOLICITADO")
     etiqueta_pedido.config(fg="#f5402e", bg="#FDF5E6", font=("Open Sans", 15, "bold"))
     etiqueta_pedido.place(x=50, y=100)
+
 
     Ventana.title()
     etiqueta_pagar = tk.Label(Ventana, text="TOTAL PRODUCTOS")
@@ -83,6 +111,8 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta1 = tk.Label(Ventana, text="UNIDADES")
     etiqueta1.config(fg="#f5402e", bg="#FDF5E6", font=("Open Sans", 15, "bold"))
     etiqueta1.place(x=120, y=700)
+
+
 
     # etiqueta de unidades
     y_pos = 140
@@ -156,6 +186,8 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta_total_bebidas.place(x=550, y=230)
 
 
+
+
     def desplegar_pagos():
         pagos_menu.post(boton_pagos.winfo_rootx(), boton_pagos.winfo_rooty() + boton_pagos.winfo_height())
 
@@ -189,6 +221,7 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta_total = tk.Label(Ventana, text="PRECIO TOTAL: ")
     etiqueta_total.configure(fg="black", bg="#FDF5E6", font=("Open Sans", 10))
     etiqueta_total.place(x=550, y=300)
+
 
 
     def habilitar_pago():
