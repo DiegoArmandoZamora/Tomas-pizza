@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 
 
 
+
 def abrir_gastos(ventana_Bienvenida):
     Ventana = tk.Toplevel(ventana_Bienvenida)
     Ventana.title("ventana Tomas")

@@ -5,6 +5,8 @@ import messagebox
 import mysql.connector
 from time import strftime
 
+
+
 def conectar_db():
     conn = mysql.connector.connect(
         host="127.0.0.1",

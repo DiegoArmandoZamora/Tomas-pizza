@@ -3,6 +3,7 @@ import random
 import CierreVentas
 from PIL import Image, ImageTk
 
+
 contador_pedidos = 0
 
 ventana_pago_anterior = None

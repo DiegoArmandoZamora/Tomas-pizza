@@ -14,6 +14,7 @@ from PIL import Image, ImageTk
 
 
 
+
 def abrir_registrar_pedido(ventana_Bienvenida):
     Ventana = Toplevel(ventana_Bienvenida)
     Ventana.title("Toma de pedido")

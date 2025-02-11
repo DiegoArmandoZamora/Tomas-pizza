@@ -8,6 +8,7 @@ from PIL import Image, ImageTk
 
 
 
+
 def abrir_cierre_caja(ventana_Bienvenida, boton_registrar_pedido):
     Ventana = tk.Toplevel(ventana_Bienvenida)
     Ventana.title("Ventana Tomas")

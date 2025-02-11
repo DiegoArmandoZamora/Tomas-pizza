@@ -6,6 +6,7 @@ import mysql.connector
 from PIL import Image, ImageTk
 
 
+
 contador_impresiones = 0
 
 def conectar_db():
