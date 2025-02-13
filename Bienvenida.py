@@ -8,7 +8,8 @@ import CierreCaja
 import CompararFechas
 import Gastos
 from PIL import Image, ImageTk
-
+from pathlib import Path
+base_path = Path.cwd()
 
 # Conexión a la base de datos
 def conectar_db():
@@ -49,9 +50,9 @@ def open_register_window(Bienvenida):
         register_windows.geometry("400x300")
 
 
-        register_windows.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+        register_windows.iconbitmap(str (base_path) + "/recursos/logoico.ico")
 
-        ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 5.jpg"
+        ruta_imagen_fondo = str (base_path) + "/recursos/fondo 5.jpg"
         imagen_fondo = Image.open(ruta_imagen_fondo)
         imagen_fondo = imagen_fondo.resize((400, 300))
         imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
@@ -120,9 +121,9 @@ def delete_user(Bienvenida):
         delete_window.title("Eliminar Usuario")
         delete_window.geometry("400x300")
 
-        delete_window.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+        delete_window.iconbitmap(str (base_path) + "/recursos/logoico.ico")
 
-        ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 5.jpg"
+        ruta_imagen_fondo = str (base_path) + "/recursos/fondo 5.jpg"
         imagen_fondo = Image.open(ruta_imagen_fondo)
         imagen_fondo = imagen_fondo.resize((400, 300))
         imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
@@ -181,7 +182,7 @@ def abrir_bienvenida(ventana_login,usuario):
     Bienvenida.geometry(f"500x600+400+50")
     Bienvenida.resizable(False, False)
 
-    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 5.jpg"
+    ruta_imagen_fondo = str (base_path) + "/recursos/fondo 5.jpg"
     imagen_fondo = Image.open(ruta_imagen_fondo)
     imagen_fondo = imagen_fondo.resize((500, 600))
     imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
@@ -295,6 +296,6 @@ def abrir_bienvenida(ventana_login,usuario):
     boton_salir.bind("<Enter>", lambda event: cambiar_color_hover(boton_salir))
     boton_salir.bind("<Leave>", lambda event: restaurar_color(boton_salir))
 
-    Bienvenida.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+    Bienvenida.iconbitmap(str (base_path) + "/recursos/logoico.ico")
 
     Bienvenida.mainloop()

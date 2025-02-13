@@ -2,7 +2,9 @@ import tkinter as tk
 from tkinter import messagebox
 import mysql.connector
 from PIL import Image, ImageTk
-
+from pathlib import Path
+from pathlib import Path
+base_path = Path.cwd()
 
 
 
@@ -91,7 +93,8 @@ def abrir_gastos(ventana_Bienvenida):
     marco_derecho = tk.Frame(Ventana, background='#FDF5E6')
     marco_derecho.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 3.jpg"
+
+    ruta_imagen_fondo = str (base_path) + "/recursos/fondo 3.jpg"
     imagen_fondo = Image.open(ruta_imagen_fondo)
     imagen_fondo = imagen_fondo.resize((500, 600))
     imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
@@ -169,6 +172,6 @@ def abrir_gastos(ventana_Bienvenida):
 
 
 
-    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+    Ventana.iconbitmap(str (base_path) + "/recursos/logoico.ico")
 
     Ventana.mainloop()

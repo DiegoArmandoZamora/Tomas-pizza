@@ -1,9 +1,11 @@
 import tkinter as tk
 from tkinter import simpledialog
 from PIL import Image, ImageTk
-import messagebox
+from tkinter import messagebox
 import mysql.connector
 from time import strftime
+from pathlib import Path
+base_path = Path.cwd()
 
 
 
@@ -62,7 +64,7 @@ def abrir_comparar_fechas(ventana_Bienvenida):
         marco_derecho = tk.Frame(Ventana, background='#FDF5E6')
         marco_derecho.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-        ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 1.jpg"
+        ruta_imagen_fondo = str (base_path) + "/recursos/fondo 1.jpg"
         imagen_fondo = Image.open(ruta_imagen_fondo)
         imagen_fondo = imagen_fondo.resize((500, 600))
         imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
@@ -192,5 +194,5 @@ def abrir_comparar_fechas(ventana_Bienvenida):
         volver_btn.bind("<Leave>", lambda event: restaurar_color(volver_btn))
 
 
-        Ventana.iconbitmap( r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+        Ventana.iconbitmap(str (base_path) + "/recursos/logoico.ico")
         Ventana.mainloop()

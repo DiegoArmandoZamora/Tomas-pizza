@@ -5,7 +5,8 @@ import mysql.connector
 from django.db.models.expressions import result
 from datetime import datetime,date
 from PIL import Image, ImageTk
-
+from pathlib import Path
+base_path = Path.cwd()
 
 
 
@@ -18,7 +19,7 @@ def abrir_cierre_caja(ventana_Bienvenida, boton_registrar_pedido):
 
 # fondo de pantalla
 
-    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 3.jpg"
+    ruta_imagen_fondo = str (base_path) + "/recursos/fondo 3.jpg"
     imagen_fondo = Image.open(ruta_imagen_fondo)
     imagen_fondo = imagen_fondo.resize((500, 600))
     imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
@@ -221,7 +222,6 @@ def abrir_cierre_caja(ventana_Bienvenida, boton_registrar_pedido):
     volver.bind("<Enter>", lambda event: cambiar_color_hover(volver))
     volver.bind("<Leave>", lambda event: restaurar_color(volver))
 
-    Ventana.iconbitmap(
-        r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+    Ventana.iconbitmap(str (base_path) + "/recursos/logoico.ico")
 
     Ventana.mainloop()

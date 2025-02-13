@@ -2,10 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from Bienvenida import abrir_bienvenida
-import messagebox
+from tkinter import messagebox
 import mysql.connector
 from PIL import Image, ImageTk
-import os
+from pathlib import Path
+base_path = Path.cwd()
 
 
 
@@ -84,7 +85,8 @@ ventana.geometry(f"500x600+400+50")
 ventana.config(bg="#FDF5E6")
 ventana.resizable(False, False)
 
-ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 4.jpg"
+
+ruta_imagen_fondo = str (base_path) + "/recursos/fondo 4.jpg"
 imagen_fondo = Image.open(ruta_imagen_fondo)
 imagen_fondo = imagen_fondo.resize((500,600))
 imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
@@ -140,10 +142,12 @@ redes = Label(ventana, text="Encuéntranos en nuestras redes sociales", backgrou
 redes.pack()
 redes.place(x=106, y=430)
 
+
 # Agregar iconos de redes sociales en formato .ico y ajustar el tamaño
-facebook_icon = Image.open(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\facebook.ico").resize((30, 30))
-x_icon = Image.open(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\twitter.ico").resize((30, 30))
-instagram_icon = Image.open(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\instagram.ico").resize((30, 30))
+
+facebook_icon = Image.open(str (base_path) + "/recursos/facebook.ico").resize((30, 30))
+x_icon = Image.open(str (base_path) + "/recursos/twitter.ico").resize((30, 30))
+instagram_icon = Image.open(str (base_path) + "/recursos/instagram.ico").resize((30, 30))
 
 facebook_icon = ImageTk.PhotoImage(facebook_icon)
 x_icon = ImageTk.PhotoImage(x_icon)
@@ -162,5 +166,5 @@ x_label.grid(row=0, column=1, padx=10)
 instagram_label = tk.Label(icon_frame, image=instagram_icon, bg="#FDF5E6")
 instagram_label.grid(row=0, column=2, padx=10)
 
-ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+ventana.iconbitmap(str (base_path) + "/recursos/logoico.ico")
 ventana.mainloop()

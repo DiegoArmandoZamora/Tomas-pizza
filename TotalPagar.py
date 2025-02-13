@@ -2,6 +2,8 @@ import tkinter as tk
 import random
 import CierreVentas
 from PIL import Image, ImageTk
+from pathlib import Path
+base_path = Path.cwd()
 
 
 contador_pedidos = 0
@@ -66,7 +68,7 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     marco_derecho.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
 # fondo de pantalla
-    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 1.jpg"
+    ruta_imagen_fondo = r"recursos\fondo 1.jpg"
     imagen_fondo = Image.open(ruta_imagen_fondo)
     imagen_fondo = imagen_fondo.resize((800, 600))
     imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
@@ -82,7 +84,7 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     etiqueta_fecha.pack(anchor='center')
     actualizar_reloj()
 
-    ruta_imagen_fondo = r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\fondo 1.jpg"
+    ruta_imagen_fondo =str (base_path) + "/recursos/fondo 1.jpg"
     imagen_fondo = Image.open(ruta_imagen_fondo)
     imagen_fondo = imagen_fondo.resize((800, 600))
     imagen_fondo = ImageTk.PhotoImage(imagen_fondo)
@@ -246,7 +248,7 @@ def abrirPagoPedido(ventana_Pedido,vegetariana, carnes, peperoni, pollo, bbq, be
     boton_pagos.bind("<Enter>", lambda event: cambiar_color_hover(boton_pagos))
     boton_pagos.bind("<Leave>", lambda event: restaurar_color(boton_pagos))
 
-    Ventana.iconbitmap(r"C:\Users\Diego Zamora\OneDrive\Documentos\Adsi 2024\repositorio\Tomas-pizza\recursos\logoico.ico")
+    Ventana.iconbitmap(str (base_path) + "/recursos/logoico.ico")
 
     Ventana.mainloop()
 def nueva_toma_de_pedido():
